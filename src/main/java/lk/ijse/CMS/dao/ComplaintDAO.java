@@ -53,4 +53,44 @@ public class ComplaintDAO {
         return list;
     }
 
+    public static Complaint getComplaintById(int id) {
+        Complaint c = null;
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM complaints WHERE id = ?")) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                c = new Complaint();
+                c.setId(rs.getInt("id"));
+                c.setUserId(rs.getInt("user_id"));
+                c.setTitle(rs.getString("title"));
+                c.setDescription(rs.getString("description"));
+                c.setStatus(rs.getString("status"));
+                c.setRemarks(rs.getString("remarks"));
+                c.setCreatedAt(rs.getTimestamp("created_at"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
+
+    public static boolean updateComplaint(Complaint c) {
+        String sql = "UPDATE complaints SET title = ?, description = ? WHERE id = ?";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, c.getTitle());
+            ps.setString(2, c.getDescription());
+            ps.setInt(3, c.getId());
+
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
