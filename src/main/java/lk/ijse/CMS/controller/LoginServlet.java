@@ -20,9 +20,9 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            res.sendRedirect("jsp/dashboard.jsp");
+            res.sendRedirect("view/dashboard.jsp");
         } else {
-            res.sendRedirect("jsp/login.jsp?error=true");
+            res.sendRedirect("view/login.jsp?error=true");
         }
     }
 }
