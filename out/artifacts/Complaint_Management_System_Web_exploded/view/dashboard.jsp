@@ -18,85 +18,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    .container {
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #2C2A2D;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .dashboard-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
       max-width: 600px;
-      margin: 50px auto;
-      background-color: white;
-      padding: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    h2 {
+    .welcome-header {
       text-align: center;
-      color: #333;
+      margin-bottom: 40px;
     }
 
-    .links {
-      margin-top: 30px;
+    .welcome-header h2 {
+      color: #2d3748;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .welcome-header .role-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #2C2A2D 0%, #E1B12C 100%);
+      color: white;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .navigation-links {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      align-items: center;
+      gap: 16px;
+      margin-bottom: 30px;
     }
 
-    .links a {
-      display: block;
-      width: 80%;
-      text-align: center;
-      padding: 12px 0;
-      background-color: #007bff;
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #9e7a18;
       color: white;
       text-decoration: none;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
     }
 
-    .links a:hover {
-      background-color: #0056b3;
-    }
-
-    .logout {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .logout a {
-      color: #dc3545;
+    .nav-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      color: white;
       text-decoration: none;
-      font-weight: bold;
     }
 
-    .logout a:hover {
-      text-decoration: underline;
+    .nav-link .icon {
+      font-size: 20px;
+    }
+
+    .logout-section {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .logout-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e53e3e;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .logout-link:hover {
+      background-color: #fed7d7;
+      color: #c53030;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 30px 20px;
+      }
+
+      .welcome-header h2 {
+        font-size: 24px;
+      }
+
+      .nav-link {
+        padding: 14px 16px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <h2>Welcome, <%= user.getName() %>!</h2>
+<div class="dashboard-container">
+  <div class="welcome-header">
+    <h2>Welcome, <%= user.getName() %>!</h2>
+    <span class="role-badge"><%= user.getRole() %></span>
+  </div>
 
-  <div class="links">
+  <div class="navigation-links">
     <% if ("employee".equalsIgnoreCase(user.getRole())) { %>
-    <a href="complaint_from.jsp">📝 Submit New Complaint</a>
-    <a href="view_complaints.jsp">📋 View My Complaints</a>
+    <a href="complaint_from.jsp" class="nav-link">
+      <span>Submit New Complaint</span>
+    </a>
+    <a href="view_complaints.jsp" class="nav-link">
+      <span>View My Complaints</span>
+    </a>
     <% } else if ("admin".equalsIgnoreCase(user.getRole())) { %>
-    <a href="admin_complaints.jsp">📂 View All Complaints</a>
-    <a href="manage_users.jsp">👥 Manage Users</a>
+    <a href="admin_complaints.jsp" class="nav-link">
+      <span>View All Complaints</span>
+    </a>
+    <a href="manage_users.jsp" class="nav-link">
+      <span>Manage Users</span>
+    </a>
     <% } %>
   </div>
 
-  <div class="logout">
-    <p><a href="login.jsp">Logout</a></p>
+  <div class="logout-section">
+    <a href="login.jsp" class="logout-link">
+      <span>Logout</span>
+    </a>
   </div>
 </div>
 </body>
