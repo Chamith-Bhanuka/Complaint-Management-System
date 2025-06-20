@@ -147,4 +147,19 @@ public class ComplaintDAO {
         }
     }
 
+    public static boolean deleteComplaintById(int id) {
+        String sql = "DELETE FROM complaints WHERE id = ?";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
