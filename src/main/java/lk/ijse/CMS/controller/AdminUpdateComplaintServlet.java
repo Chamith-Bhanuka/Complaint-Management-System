@@ -18,7 +18,7 @@ public class AdminUpdateComplaintServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            res.sendRedirect("view/login.jsp");
+            res.sendRedirect(req.getContextPath() + "/view/login.jsp");
             return;
         }
 
@@ -26,13 +26,18 @@ public class AdminUpdateComplaintServlet extends HttpServlet {
         String status = req.getParameter("status");
         String remarks = req.getParameter("remarks");
 
+        System.out.println("Update ID: " + id);
+        System.out.println("Status: " + status);
+        System.out.println("Remarks: " + remarks);
+
         Complaint complaint = ComplaintDAO.getComplaintById(id);
         if (complaint != null) {
-            complaint.setStatus(status);
-            complaint.setRemarks(remarks);
-            ComplaintDAO.updateComplaint(complaint);
+//            complaint.setId(id);
+//            complaint.setStatus(status);
+//            complaint.setRemarks(remarks);
+            ComplaintDAO.updateComplaintStatus(id, status, remarks);
         }
 
-        res.sendRedirect("view/admin_complaints.jsp?updated=true");
+        res.sendRedirect(req.getContextPath() + "/view/admin_complaints.jsp?updated=true");
     }
 }
