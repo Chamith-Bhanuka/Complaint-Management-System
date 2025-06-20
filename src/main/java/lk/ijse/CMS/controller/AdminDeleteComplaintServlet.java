@@ -10,19 +10,20 @@ import lk.ijse.CMS.model.User;
 
 import java.io.IOException;
 
-@WebServlet("/admin/deleteComplaint")
+@WebServlet("/adminDeleteComplaint")
 public class AdminDeleteComplaintServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            res.sendRedirect("../view/login.jsp");
+            res.sendRedirect("view/login.jsp");
             return;
         }
 
         int id = Integer.parseInt(req.getParameter("id"));
-        boolean deleted = ComplaintDAO.deleteComplaintById(id);
-        res.sendRedirect("complaints?deleted=" + deleted);
+        ComplaintDAO.deleteComplaint(id);
+
+        res.sendRedirect("view/admin_complaints.jsp?deleted=true");
     }
 }
