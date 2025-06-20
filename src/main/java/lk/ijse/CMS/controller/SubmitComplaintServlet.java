@@ -18,7 +18,7 @@ public class SubmitComplaintServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"employee".equals(user.getRole())) {
-            res.sendRedirect("jsp/login.jsp");
+            res.sendRedirect("view/login.jsp");
             return;
         }
 
@@ -31,6 +31,6 @@ public class SubmitComplaintServlet extends HttpServlet {
         c.setDescription(description);
 
         boolean success = ComplaintDAO.saveComplaint(c);
-        res.sendRedirect("jsp/dashboard.jsp?submitted=" + success);
+        res.sendRedirect("view/dashboard.jsp?submitted=" + success);
     }
 }

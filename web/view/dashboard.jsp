@@ -87,7 +87,7 @@
 
   <div class="links">
     <% if ("employee".equalsIgnoreCase(user.getRole())) { %>
-    <a href="complaint_form.jsp">📝 Submit New Complaint</a>
+    <a href="complaint_from.jsp">📝 Submit New Complaint</a>
     <a href="view_complaints.jsp">📋 View My Complaints</a>
     <% } else if ("admin".equalsIgnoreCase(user.getRole())) { %>
     <a href="admin_complaints.jsp">📂 View All Complaints</a>
