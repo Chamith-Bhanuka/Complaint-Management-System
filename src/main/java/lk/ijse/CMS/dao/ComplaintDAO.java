@@ -6,6 +6,7 @@ import lk.ijse.CMS.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +105,31 @@ public class ComplaintDAO {
             return false;
         }
     }
+
+    public static List<Complaint> getAllComplaints() {
+        List<Complaint> list = new ArrayList<>();
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM complaints ORDER BY created_at DESC")) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Complaint c = new Complaint();
+                c.setId(rs.getInt("id"));
+                c.setUserId(rs.getInt("user_id"));
+                c.setTitle(rs.getString("title"));
+                c.setDescription(rs.getString("description"));
+                c.setStatus(rs.getString("status"));
+                c.setRemarks(rs.getString("remarks"));
+                c.setCreatedAt(Timestamp.valueOf(rs.getTimestamp("created_at").toString()));
+
+                list.add(c);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
 }
