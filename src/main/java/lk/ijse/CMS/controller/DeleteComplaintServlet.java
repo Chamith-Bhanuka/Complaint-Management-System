@@ -1,5 +1,6 @@
 package lk.ijse.CMS.controller;
 
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,13 +11,14 @@ import lk.ijse.CMS.model.User;
 
 import java.io.IOException;
 
+@WebServlet("/deleteComplaint")
 public class DeleteComplaintServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"employee".equals(user.getRole())) {
-            res.sendRedirect("jsp/login.jsp");
+            res.sendRedirect("view/login.jsp");
             return;
         }
 
@@ -28,6 +30,6 @@ public class DeleteComplaintServlet extends HttpServlet {
             ComplaintDAO.deleteComplaint(id);
         }
 
-        res.sendRedirect("jsp/view_complaints.jsp?deleted=true");
+        res.sendRedirect("view/view_complaints.jsp?deleted=true");
     }
 }

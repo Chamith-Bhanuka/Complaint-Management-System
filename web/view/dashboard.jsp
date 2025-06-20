@@ -96,7 +96,7 @@
   </div>
 
   <div class="logout">
-    <p><a href="../logout">Logout</a></p>
+    <p><a href="login.jsp">Logout</a></p>
   </div>
 </div>
 </body>
