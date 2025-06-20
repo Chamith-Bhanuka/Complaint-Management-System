@@ -25,9 +25,9 @@ public class SignupServlet extends HttpServlet {
 
         boolean created = UserDAO.register(user);
         if (created) {
-            res.sendRedirect("jsp/login.jsp?signup=success");
+            res.sendRedirect("view/login.jsp?signup=success");
         } else {
-            res.sendRedirect("jsp/signup.jsp?error=exists");
+            res.sendRedirect("view/signup.jsp?error=exists");
         }
     }
 }
