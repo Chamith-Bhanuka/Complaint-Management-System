@@ -15,14 +15,19 @@ public class SignupServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String role = req.getParameter("role");
 
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRole("employee");
+        user.setRole(role);
 
-        boolean success = UserDAO.registerUser(user);
-        res.sendRedirect(success ? "jsp/login.jsp" : "jsp/signup.jsp?error=true");
+        boolean created = UserDAO.register(user);
+        if (created) {
+            res.sendRedirect("jsp/login.jsp?signup=success");
+        } else {
+            res.sendRedirect("jsp/signup.jsp?error=exists");
+        }
     }
 }
