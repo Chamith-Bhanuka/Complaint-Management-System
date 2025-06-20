@@ -6,6 +6,7 @@ import lk.ijse.CMS.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
     public static boolean registerUser(User user) {
@@ -46,4 +47,23 @@ public class UserDAO {
         }
         return null;
     }
+
+    public static boolean register(User user) {
+        String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getRole());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
