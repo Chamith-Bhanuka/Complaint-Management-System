@@ -20,12 +20,12 @@ public class AdminComplaintsServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            res.sendRedirect("../jsp/login.jsp");
+            res.sendRedirect("../view/login.jsp");
             return;
         }
 
         List<Complaint> complaints = ComplaintDAO.getAllComplaints();
         req.setAttribute("complaints", complaints);
-        req.getRequestDispatcher("/jsp/admin_complaints.jsp").forward(req, res);
+        req.getRequestDispatcher("/view/admin_complaints.jsp").forward(req, res);
     }
 }

@@ -139,7 +139,7 @@
     <td><%= c.getRemarks() == null ? "-" : c.getRemarks() %></td>
     <td><%= c.getCreatedAt() %></td>
     <td>
-      <form action="updateComplaint" method="post">
+      <form action="../updateComplaint" method="post">
         <input type="hidden" name="id" value="<%= c.getId() %>">
         <select name="status">
           <option value="Pending" <%= "Pending".equals(c.getStatus()) ? "selected" : "" %>>Pending</option>
@@ -149,7 +149,7 @@
         <input type="text" name="remarks" value="<%= c.getRemarks() != null ? c.getRemarks() : "" %>">
         <input type="submit" value="Update">
       </form>
-      <form action="deleteComplaint" method="post" onsubmit="return confirm('Are you sure you want to delete this complaint?');">
+      <form action="../deleteComplaint" method="post" onsubmit="return confirm('Are you sure you want to delete this complaint?');">
         <input type="hidden" name="id" value="<%= c.getId() %>">
         <input type="submit" value="Delete">
       </form>
