@@ -16,7 +16,7 @@ public class EditComplaintServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"employee".equals(user.getRole())) {
-            res.sendRedirect("jsp/login.jsp");
+            res.sendRedirect("view/login.jsp");
             return;
         }
 
@@ -24,12 +24,12 @@ public class EditComplaintServlet extends HttpServlet {
         Complaint c = ComplaintDAO.getComplaintById(complaintId);
 
         if (c == null || c.getUserId() != user.getId() || !"Pending".equalsIgnoreCase(c.getStatus())) {
-            res.sendRedirect("jsp/view_complaints.jsp?unauthorized=true");
+            res.sendRedirect("view/view_complaints.jsp?unauthorized=true");
             return;
         }
 
         session.setAttribute("complaintToEdit", c);
-        res.sendRedirect("jsp/edit_complaint.jsp");
+        res.sendRedirect("view/edit_complaint.jsp");
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -39,7 +39,7 @@ public class EditComplaintServlet extends HttpServlet {
         Complaint original = (Complaint) session.getAttribute("complaintToEdit");
 
         if (user == null || original == null || original.getUserId() != user.getId()) {
-            res.sendRedirect("jsp/view_complaints.jsp?unauthorized=true");
+            res.sendRedirect("view/view_complaints.jsp?unauthorized=true");
             return;
         }
 
@@ -52,6 +52,6 @@ public class EditComplaintServlet extends HttpServlet {
         ComplaintDAO.updateComplaint(original);
 
         session.removeAttribute("complaintToEdit");
-        res.sendRedirect("jsp/view_complaints.jsp?edited=true");
+        res.sendRedirect("view/view_complaints.jsp?edited=true");
     }
 }
