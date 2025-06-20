@@ -40,6 +40,7 @@
       text-align: center;
       color: green;
       font-weight: bold;
+      margin-bottom: 20px;
     }
 
     table {
@@ -54,6 +55,7 @@
       padding: 12px;
       border: 1px solid #ddd;
       text-align: center;
+      vertical-align: middle;
     }
 
     th {
@@ -69,16 +71,29 @@
 
     input[type="submit"] {
       padding: 6px 12px;
-      background-color: #28a745;
-      color: white;
-      border: none;
+      margin-top: 5px;
       font-size: 14px;
       border-radius: 4px;
       cursor: pointer;
+      border: none;
     }
 
-    input[type="submit"]:hover {
+    input[type="submit"][value='Update'] {
+      background-color: #28a745;
+      color: white;
+    }
+
+    input[type="submit"][value='Update']:hover {
       background-color: #218838;
+    }
+
+    input[type="submit"][value='Delete'] {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    input[type="submit"][value='Delete']:hover {
+      background-color: #c82333;
     }
 
     .back-link {
@@ -99,6 +114,8 @@
 
 <% if ("true".equals(request.getParameter("updated"))) { %>
 <div class="message">Complaint updated successfully!</div>
+<% } else if ("true".equals(request.getParameter("deleted"))) { %>
+<div class="message">Complaint deleted successfully!</div>
 <% } %>
 
 <table>
@@ -110,7 +127,7 @@
     <th>Status</th>
     <th>Remarks</th>
     <th>Created At</th>
-    <th>Update</th>
+    <th>Actions</th>
   </tr>
   <% for (Complaint c : complaints) { %>
   <tr>
@@ -131,6 +148,10 @@
         </select>
         <input type="text" name="remarks" value="<%= c.getRemarks() != null ? c.getRemarks() : "" %>">
         <input type="submit" value="Update">
+      </form>
+      <form action="deleteComplaint" method="post" onsubmit="return confirm('Are you sure you want to delete this complaint?');">
+        <input type="hidden" name="id" value="<%= c.getId() %>">
+        <input type="submit" value="Delete">
       </form>
     </td>
   </tr>

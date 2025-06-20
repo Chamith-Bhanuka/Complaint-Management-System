@@ -17,7 +17,7 @@ public class AdminDeleteComplaintServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            res.sendRedirect("../jsp/login.jsp");
+            res.sendRedirect("../view/login.jsp");
             return;
         }
 
