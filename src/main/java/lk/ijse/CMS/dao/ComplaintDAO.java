@@ -131,5 +131,20 @@ public class ComplaintDAO {
         return list;
     }
 
+    public static boolean updateComplaintStatus(int id, String status, String remarks) {
+        String sql = "UPDATE complaints SET status = ?, remarks = ? WHERE id = ?";
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, status);
+            ps.setString(2, remarks);
+            ps.setInt(3, id);
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
