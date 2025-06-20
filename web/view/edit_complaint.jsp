@@ -175,9 +175,7 @@
         <button type="submit" class="btn-primary">Update Complaint</button>
     </form>
 
-    <a href="view_complaints.jsp" class="back-link">
-        ← Back to My Complaints
-    </a>
+    <a href="view_complaints.jsp" class="back-link">Back to My Complaints</a>
 </div>
 </body>
 </html>

@@ -36,7 +36,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background: rgba(255, 255, 255, 0.95);
       min-height: 100vh;
       padding: 20px;
       color: #334155;
@@ -249,7 +249,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #1e293b;
+      background: #9e7a18;
       color: white;
       padding: 12px 20px;
       border-radius: 8px;

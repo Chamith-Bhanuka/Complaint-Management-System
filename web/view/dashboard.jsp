@@ -173,7 +173,7 @@
   </div>
 
   <div class="logout-section">
-    <a href="login.jsp" class="logout-link">
+    <a href="${pageContext.request.contextPath}/logout" class="logout-link">
       <span>Logout</span>
     </a>
   </div>

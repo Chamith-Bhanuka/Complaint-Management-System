@@ -175,9 +175,7 @@
     <button type="submit" class="btn-primary">Submit Complaint</button>
   </form>
 
-  <a href="dashboard.jsp" class="back-link">
-    ← Back to Dashboard
-  </a>
+  <a href="dashboard.jsp" class="back-link">Back to Dashboard</a>
 </div>
 </body>
 </html>
